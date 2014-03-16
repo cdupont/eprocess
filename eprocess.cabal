@@ -1,14 +1,12 @@
 name: eprocess
-version: 1.5.1
+version: 1.5.3
 cabal-version: >=1.6
 build-type: Simple
 license: BSD3
 license-file: LICENSE
 copyright: 2009 Fernando "Brujo" Benavides
-maintainer: greenmellon@gmail.com
+maintainer: corentin.dupont@gmail.com
 stability: stable
-package-url: http://code.haskell.org/eprocess
-bug-reports: http://github.com/elbrujohalcon/eprocess/issues
 synopsis: *Very* basic Erlang-like process support for Haskell
 description: This library provides a *very* basic support for processes with message queues.  It was built using channels, threads and MVars. Since version 1.1.0 you can also kill a running process.
 category: Concurrency
