@@ -19,12 +19,12 @@ extra-tmp-files:
 
 source-repository head
     type:     git
-    location: git://github.com/elbrujohalcon/eprocess.git
+    location: git://github.com/cdupont/eprocess.git
 
 Library
-    build-depends: base >= 4,                   base < 5,
-                   mtl >=1.1.0,                 mtl < 2.1,
-                   MonadCatchIO-mtl >= 0.1.0,   MonadCatchIO-mtl < 0.4
+    build-depends: base == 4.*,
+                   mtl == 2.1.*,
+                   exceptions == 0.3.*
     exposed-modules: Control.Concurrent.Process
     hs-source-dirs: src
     

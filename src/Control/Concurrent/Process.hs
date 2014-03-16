@@ -19,7 +19,7 @@ import Control.Monad.Reader
 import Control.Monad.State.Class
 import Control.Monad.Writer.Class
 import Control.Monad.Error.Class
-import Control.Monad.CatchIO
+import Control.Monad.Catch
 import Data.Monoid
 import Control.Concurrent
 
@@ -36,7 +36,7 @@ data Handle r = PH {chan     :: Chan r,
 -- 
 -- [@a@] the classic monad parameter
 newtype ReceiverT r m a = RT { internalReader :: ReaderT (Handle r) m a }
-    deriving (Monad, MonadIO, MonadTrans, MonadCatchIO)
+    deriving (Monad, MonadIO, MonadTrans, MonadCatch)
 
 -- | /Process/ are receivers that run in the IO Monad
 type Process r = ReceiverT r IO
