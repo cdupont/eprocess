@@ -1,5 +1,5 @@
 name: eprocess
-version: 1.6.0
+version: 1.7.0
 cabal-version: >=1.6
 build-type: Simple
 license: BSD3
@@ -24,7 +24,7 @@ source-repository head
 Library
     build-depends: base == 4.*,
                    mtl == 2.1.*,
-                   exceptions == 0.3.*
+                   exceptions == 0.6.*
     exposed-modules: Control.Concurrent.Process
     hs-source-dirs: src
     

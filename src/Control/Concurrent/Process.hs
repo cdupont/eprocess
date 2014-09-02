@@ -36,7 +36,7 @@ data Handle r = PH {chan     :: Chan r,
 -- 
 -- [@a@] the classic monad parameter
 newtype ReceiverT r m a = RT { internalReader :: ReaderT (Handle r) m a }
-    deriving (Monad, MonadIO, MonadTrans, MonadCatch)
+    deriving (Monad, MonadIO, MonadTrans, MonadCatch, MonadThrow, MonadMask)
 
 -- | /Process/ are receivers that run in the IO Monad
 type Process r = ReceiverT r IO
