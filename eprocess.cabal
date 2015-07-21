@@ -7,8 +7,8 @@ license-file: LICENSE
 copyright: 2009 Fernando "Brujo" Benavides
 maintainer: corentin.dupont@gmail.com
 stability: stable
-synopsis: *Very* basic Erlang-like process support for Haskell
-description: This library provides a *very* basic support for processes with message queues.  It was built using channels, threads and MVars. Since version 1.1.0 you can also kill a running process.
+synopsis: Basic Erlang-like process support for Haskell
+description: This library provides a basic support for processes with message queues.  It was built using channels, threads and MVars. Since version 1.1.0 you can also kill a running process.
 category: Concurrency
 author: Fernando "Brujo" Benavides
 tested-with: GHC ==6.12.1

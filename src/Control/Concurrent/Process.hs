@@ -23,6 +23,7 @@ import Control.Monad.Error.Class
 import Control.Monad.Catch
 import Data.Monoid
 import Control.Concurrent
+import Control.Applicative
 
 -- | A Process handle.  It's returned on process creation and should be used
 -- | afterwards to send messages to it
