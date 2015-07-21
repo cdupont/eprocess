@@ -23,8 +23,8 @@ source-repository head
 
 Library
     build-depends: base == 4.*,
-                   mtl == 2.1.*,
-                   exceptions == 0.6.*
+                   mtl == 2.2.*,
+                   exceptions == 0.8.*
     exposed-modules: Control.Concurrent.Process
     hs-source-dirs: src
     
