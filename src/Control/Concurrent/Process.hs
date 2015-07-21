@@ -1,13 +1,14 @@
-{-# LANGUAGE GeneralizedNewtypeDeriving,
-             MultiParamTypeClasses,
-             FlexibleInstances,
-             FunctionalDependencies,
-             UndecidableInstances #-} 
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
+{-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE FunctionalDependencies #-}
+{-# LANGUAGE UndecidableInstances #-}
+{-# LANGUAGE StandaloneDeriving #-}
 
 -- | This module provides a *very* basic support for processes with message queues.  It was built using channels and MVars.
 module Control.Concurrent.Process (
 -- * Types
-        ReceiverT, Handle, Process, 
+        ReceiverT, Handle, Process,
 -- * Functions
 -- ** Process creation / destruction
         makeProcess, runHere, spawn, kill,
@@ -29,14 +30,14 @@ data Handle r = PH {chan     :: Chan r,
                     thread   :: ThreadId}
 
 -- | The /ReceiverT/ generic type.
--- 
+--
 -- [@r@] the type of things the process will receive
--- 
+--
 -- [@m@] the monad in which it will run
--- 
+--
 -- [@a@] the classic monad parameter
 newtype ReceiverT r m a = RT { internalReader :: ReaderT (Handle r) m a }
-    deriving (Monad, MonadIO, MonadTrans, MonadCatch, MonadThrow, MonadMask)
+   deriving (Functor, Applicative, Monad, MonadIO, MonadTrans, MonadCatch, MonadThrow, MonadMask)
 
 -- | /Process/ are receivers that run in the IO Monad
 type Process r = ReceiverT r IO
@@ -45,7 +46,7 @@ type Process r = ReceiverT r IO
 -- @
 --      sendTo processHandle message
 -- @
-sendTo :: MonadIO m => Handle a -- ^ The receiver process handle 
+sendTo :: MonadIO m => Handle a -- ^ The receiver process handle
         -> a                    -- ^ The message to send
         -> m ()
 sendTo ph = liftIO . writeChan (chan ph)
@@ -91,11 +92,11 @@ recvIn ms = RT $
 -- | /sendRecv/ is just a syntactic sugar for:
 -- @
 --      sendTo h a >> recv
--- @ 
+-- @
 sendRecv :: MonadIO m => Handle a -- ^ The receiver process handle
           -> a                    -- ^ The message to send
           -> ReceiverT r m r      -- ^ The process where this action is run will wait until it receives something
-sendRecv h a = sendTo h a >> recv 
+sendRecv h a = sendTo h a >> recv
 
 -- | /spawn/ starts a process and returns its handle. Usage:
 -- @
@@ -132,8 +133,8 @@ self = RT ask
 -- | /makeProcess/ builds a process from a code that generates an IO action. Usage:
 -- @
 --      process <- makeProcess evalFunction receiver
--- @ 
-makeProcess :: (m t -> IO s) -> ReceiverT r m t -> Process r s 
+-- @
+makeProcess :: (m t -> IO s) -> ReceiverT r m t -> Process r s
 makeProcess f (RT a) = RT (mapReaderT f a)
 
 instance MonadState s m => MonadState s (ReceiverT r m) where
@@ -142,7 +143,7 @@ instance MonadState s m => MonadState s (ReceiverT r m) where
 
 instance MonadReader r m => MonadReader r (ReceiverT r m) where
     ask = lift ask
-    local = onInner . local 
+    local = onInner . local
 
 instance (Monoid w, MonadWriter w m) => MonadWriter w (ReceiverT w m) where
     tell = lift . tell
