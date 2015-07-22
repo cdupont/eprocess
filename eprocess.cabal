@@ -1,5 +1,5 @@
 name: eprocess
-version: 1.7.1
+version: 1.7.2
 cabal-version: >=1.6
 build-type: Simple
 license: BSD3
